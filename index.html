@@ -1,147 +1,886 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example Club</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JWU-NCSA</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+      /* Reset & basics */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f0f2f5;
+        color: #333;
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+      a {
+        text-decoration: none;
+      }
 
-        header {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-        }
+      /* Header/Banner */
+      header.banner {
+        position: relative;
+        width: 100%;
+        height: 250px;
+        background-image: url("https://placehold.co/400");
+        background-size: cover;
+        background-position: center;
+      }
+      .banner-text {
+        text-align: center;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 250px;
+      }
+      .banner-text h1 {
+        font-size: 2.8rem;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+      }
+      .banner-text p {
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+      }
+      .banner-text .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #3498db;
+        color: #fff;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background 0.3s;
+        margin-top: 10px;
+      }
+      .banner-text .btn:hover {
+        background: #2980b9;
+      }
 
-        nav {
-            display: flex;
-            justify-content: center;
-            background-color: #34495e;
-        }
+      /* Navigation */
+      nav {
+        display: flex;
+        justify-content: center;
+        background: #2c3e50;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      nav button {
+        background: none;
+        border: none;
+        color: #fff;
+        padding: 15px 25px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+        text-transform: uppercase;
+      }
+      nav button:hover,
+      nav button.active {
+        background: #34495e;
+      }
 
-        nav a {
-            color: #fff;
-            padding: 15px 20px;
-            text-decoration: none;
-            text-transform: uppercase;
-        }
+      /* Container & Sections */
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 40px auto;
+      }
+      section {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition: all 0.6s ease;
+      }
+      section.active {
+        max-height: 5000px;
+        opacity: 1;
+        padding: 40px 0;
+        min-height: 70vh;
+      }
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 2rem;
+        color: #2c3e50;
+      }
 
-        nav a:hover {
-            background-color: #2c3e50;
-        }
+      /* Weekly Meetings */
+      .weekly-meetings {
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        color: #fff;
+        padding: 15px;
+        border-radius: 8px;
+        margin: 20px 0;
+        text-align: center;
+        font-weight: bold;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 20px auto;
-        }
+      /* About Section */
+      .about-text {
+        max-width: 850px;
+        margin: 0 auto 20px auto;
+        color: #555;
+      }
+      .timeline {
+        max-width: 800px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .timeline div {
+        background: #fff;
+        padding: 15px 20px;
+        border-left: 5px solid #3498db;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        section {
-            padding: 20px 0;
-        }
+      /* Events Section */
+      .events {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+      }
+      .event {
+        background: #fff;
+        padding: 25px 20px;
+        border-radius: 12px;
+        flex: 1 1 260px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        text-align: center;
+      }
+      .event:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      }
+      .event button {
+        margin-top: 10px;
+        padding: 10px 15px;
+        background: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+      .event button:hover {
+        background: #2980b9;
+      }
 
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+      /* Eboard Section */
+      .eboard {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+        justify-content: center;
+      }
+      .member {
+        background: #fff;
+        flex: 1 1 260px;
+        border-radius: 12px;
+        perspective: 1000px;
+        height: 300px;
+      }
+      .member-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transform-style: preserve-3d;
+        transition: transform 0.6s;
+      }
 
-        .events {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
+      .member-front,
+      .member-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      .member-front img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid #3498db;
+        transition: transform 0.3s;
+      }
+      .member-front img:hover {
+        transform: scale(1.05);
+      }
+      .member-back {
+        transform: rotateY(180deg);
+        background: #f0f2f5;
+        text-align: center;
+      }
 
-        .event {
-            background: #fff;
-            padding: 15px;
-            border-radius: 5px;
-            flex: 1 1 250px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+      /* Contact Section */
+      form {
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      form input,
+      form textarea {
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 1rem;
+        transition: border 0.3s;
+      }
+      form input:focus,
+      form textarea:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+      form button {
+        padding: 12px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 6px;
+        font-weight: bold;
+        font-size: 1rem;
+        transition: background 0.3s;
+      }
+      form button:hover {
+        background-color: #2980b9;
+      }
 
-        footer {
-            text-align: center;
-            padding: 15px 0;
-            background-color: #2c3e50;
-            color: #fff;
-        }
+      /* Follow Section */
+      #follow-us {
+        text-align: center;
+      }
+      #follow-us .social-cards {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+      .social-card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 25px;
+        width: 280px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+      .social-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(90deg, #3498db, #2980b9);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      .social-card:hover::before {
+        transform: scaleX(1);
+      }
+      .social-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+      .social-card-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+      }
+      .social-card h3 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+      }
+      .social-card p {
+        color: #666;
+        font-size: 0.95rem;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+      .social-card .card-stats {
+        display: flex;
+        justify-content: space-around;
+        margin: 15px 0;
+        padding: 10px 0;
+        border-top: 1px solid #e0e0e0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .social-card .stat {
+        text-align: center;
+      }
+      .social-card .stat-number {
+        font-weight: bold;
+        color: #3498db;
+        font-size: 1.2rem;
+      }
+      .social-card .stat-label {
+        font-size: 0.8rem;
+        color: #999;
+        text-transform: uppercase;
+      }
+      .social-card .visit-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #3498db;
+        color: #fff;
+        border-radius: 6px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background 0.3s;
+        margin-top: 10px;
+      }
+      .social-card .visit-btn:hover {
+        background: #2980b9;
+      }
 
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
+      /* Footer */
+      footer {
+        text-align: center;
+        padding: 25px 0;
+        background: #2c3e50;
+        color: #fff;
+        font-size: 0.95rem;
+      }
+      footer .social-links {
+        margin-top: 10px;
+        font-size: 0.95rem;
+      }
+      footer .social-links a {
+        color: #fff;
+        transition: color 0.3s;
+      }
+      footer .social-links a:hover {
+        color: #3498db;
+      }
 
-        form input, form textarea {
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+      /* Responsive */
+      @media (max-width: 768px) {
+        nav button {
+          padding: 12px 18px;
         }
+        .banner-text h1 {
+          font-size: 2rem;
+        }
+        .banner-text p {
+          font-size: 1rem;
+        }
+        .event,
+        .member {
+          flex: 1 1 100%;
+        }
+      }
 
-        form button {
-            padding: 10px;
-            background-color: #34495e;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            border-radius: 3px;
-        }
+      /* Horizontal timeline */
+      .timeline-horizontal {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 40px 20px 20px;
+      }
+      .timeline-line {
+        position: absolute;
 
-        form button:hover {
-            background-color: #2c3e50;
-        }
+        left: 5%;
+        width: 90%;
+        height: 4px;
+        background: #3498db;
+        transform: translateY(-50%);
+        border-radius: 2px;
+        z-index: 1;
+      }
+      .timeline-item {
+        position: relative;
+        z-index: 2;
+        width: 40px;
+        height: 40px;
+        background: #fff;
+        border: 3px solid #3498db;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: small;
+        transition: transform 0.3s;
+      }
+      .timeline-item:hover {
+        transform: scale(1.3);
+      }
+      .timeline-item::after {
+        content: attr(data-info);
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        font-size: 0.7rem;
+        width: max-content;
+        max-width: fit-content;
+        text-align: center;
+        z-index: 9999;
+      }
+      .timeline-item:hover::after {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .img-center {
+        margin-left: 25%;
+        border-radius: 25px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
     </style>
-</head>
-<body>
-    <header>
+  </head>
+  <body>
+    <header class="banner">
+      <div class="banner-text">
         <h1>JWU-NCSA</h1>
-        <p>Welcome to the JWU chapter of NCSA!</p>
+        <p>
+          Welcome to The JWU chapter of the National Cyber-Security Student
+          Association!
+          <br />
+          <a
+            href="https://providence-jwu.presence.io/organization/national-cybersecurity-student-association"
+            target="_blank"
+            class="btn"
+            >Join Now</a
+          >
+        </p>
+      </div>
     </header>
+
     <nav>
-        <a href="#about">About</a>
-        <a href="#events">Events</a>
-        <a href="#E-Board">E-Board</a>
-        <a href="#contact">Contact</a>
+      <button class="tab-btn active" data-tab="about">About</button>
+      <button class="tab-btn" data-tab="events">Events</button>
+      <button class="tab-btn" data-tab="eboard">Eboard</button>
+      <!--<button class="tab-btn" data-tab="contact">Contact</button> -->
+      <button class="tab-btn" data-tab="follow-us">Follow Us</button>
     </nav>
+
     <div class="container">
-        <section id="about">
-            <h2>About Us</h2>
-            <p>Example Club is dedicated to bringing people together for fun activities, learning, and community engagement. We welcome everyone to join and participate in our events.</p>
-        </section>
+      <!-- About -->
+      <section id="about">
+        <h2>About Us</h2>
+        <p class="about-text">
+          The National Cybersecurity Student Association is a one-stop-shop to
+          enhance the educational and professional development of cybersecurity
+          students through activities, networking and collaboration. This group
+          supports the cybersecurity educational programs of academic
+          institutions, inspires career awareness and encourages creative
+          efforts to increase the number of graduates in the field.
+        </p>
 
-        <section id="events">
-            <h2>Upcoming Events</h2>
-            <div class="events">
-                <div class="event">
-                    <h3>Monthly Meetup</h3>
-                    <p>Date: November 10, 2025</p>
-                    <p>Join us for networking, games, and discussions about club activities.</p>
-                </div>
-                <div class="event">
-                    <h3>Charity Drive</h3>
-                    <p>Date: November 20, 2025</p>
-                    <p>Help us organize a charity drive to support local communities.</p>
-                </div>
+        <img
+          class="img-center"
+          src="https://placehold.co/600x400"
+          alt="team"
+          width="600"
+          height="400"
+        />
+        <h2>Timeline</h2>
+        <!-- Horizontal Timeline -->
+        <div class="timeline-horizontal">
+          <div class="timeline-line"></div>
+          <div
+            class="timeline-item"
+            data-info="Club founded and first meetup held."
+          >
+            2023
+          </div>
+          <div
+            class="timeline-item"
+            data-info="Participated in national cybersecurity competitions."
+          >
+            2024
+          </div>
+          <div
+            class="timeline-item"
+            data-info="Hosted first internal CTF challenge."
+          >
+            2025
+          </div>
+          <div class="timeline-item" data-info="Cool things to come.">2026</div>
+        </div>
+      </section>
+
+      <!-- Events -->
+      <section id="events">
+        <h2>Upcoming Events</h2>
+        <div class="events">
+          <div class="event">
+            <h3>Lorem</h3>
+            <p>Date: November 10, 2025</p>
+            <p>Discuss upcoming projects and cybersecurity topics.</p>
+            <button>Register</button>
+          </div>
+          <div class="event">
+            <h3>Lorem</h3>
+            <p>Date: November 20, 2025</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Register</button>
+          </div>
+          <div class="event">
+            <h3>Lorem</h3>
+            <p>Date: November 25, 2025</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button>Register</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Eboard -->
+      <section id="eboard">
+        <h2>Eboard</h2>
+        <div class="eboard">
+          <div class="member">
+            <div class="member-inner">
+              <div class="member-front">
+                <img src="https://placehold.co/200" alt="President" />
+                <h3>Jane Doe</h3>
+                <p>President</p>
+              </div>
+              <div class="member-back">
+                Leads the chapter, coordinates events, and ensures smooth
+                operation of all club activities.
+              </div>
             </div>
-        </section>
+          </div>
+          <div class="member">
+            <div class="member-inner">
+              <div class="member-front">
+                <img src="https://placehold.co/200" alt="Vice President" />
+                <h3>John Smith</h3>
+                <p>Vice President</p>
+              </div>
+            </div>
+          </div>
+          <div class="member">
+            <div class="member-inner">
+              <div class="member-front">
+                <img src="https://placehold.co/200" alt="Secretary" />
+                <h3>Mary Johnson</h3>
+                <p>Secretary</p>
+              </div>
+              <div class="member-back">
+                Manages meeting notes, communications, and maintains club
+                records.
+              </div>
+            </div>
+          </div>
+          <div class="member">
+            <div class="member-inner">
+              <div class="member-front">
+                <img src="https://placehold.co/200" alt="Treasurer" />
+                <h3>James Lee</h3>
+                <p>Treasurer</p>
+              </div>
+              <div class="member-back">
+                Handles finances, budgeting, and tracks all monetary activities
+                of the club.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <section id="contact">
-            <h2>Contact Us</h2>
+      <!-- Contact 
+      <section id="contact">
+        <h2>Contact Us</h2>
+        <p class="about-text">
+          Have questions or want to join? Reach out to us through the form below
+          or come to one of our weekly meetings!
+        </p>
+        <form id="contact-form">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            required
+          ></textarea>
+          <button type="submit">Send</button>
+          <p
+            id="success-msg"
+            style="color: green; margin-top: 10px; display: none"
+          >
+            Message sent successfully!
+          </p>
+        </form>
+      </section>
+ -->
+      <!-- Follow Us -->
+      <section id="follow-us">
+        <h2>Follow & Join Us</h2>
+        <p class="about-text">
+          Stay connected with JWU-NCSA through our social media and community
+          channels:
+        </p>
+        <div class="social-cards">
+          <div class="social-card" data-platform="instagram">
+            <div class="social-card-icon">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png"
+                alt="Instagram Logo"
+                width="40"
+              />
+            </div>
+            <h3>Instagram</h3>
+            <p>
+              Follow us for event photos, announcements, and behind-the-scenes
+              content from our cybersecurity activities.
+            </p>
+            <div class="card-stats">
+              <div class="stat">
+                <div class="stat-number" id="ig-posts">2</div>
+                <div class="stat-label">Posts</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="ig-followers">39</div>
+                <div class="stat-label">Followers</div>
+              </div>
+            </div>
+            <a
+              href="https://www.instagram.com/jwu_ncsa/"
+              target="_blank"
+              class="visit-btn"
+              >Visit Page</a
+            >
+          </div>
 
-        </section>
+          <div class="social-card" data-platform="discord">
+            <div class="social-card-icon">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/7/73/Discord_Color_Text_Logo_%282015-2021%29.svg"
+                alt="Discord Logo"
+                width="100"
+              />
+            </div>
+            <h3>Discord</h3>
+            <p>
+              Join our active community server for real-time discussions, study
+              groups, and collaborative projects.
+            </p>
+            <div class="card-stats">
+              <div class="stat">
+                <div class="stat-number" id="discord-members">33</div>
+                <div class="stat-label">Members</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="discord-online">11</div>
+                <div class="stat-label">Online</div>
+              </div>
+            </div>
+            <a
+              href="https://discord.gg/3Ex9zfmw"
+              target="_blank"
+              class="visit-btn"
+              >Join Server</a
+            >
+          </div>
+
+          <div class="social-card" data-platform="github">
+            <div class="social-card-icon">
+              <img
+                src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+                alt="GitHub Logo"
+                width="60"
+              />
+            </div>
+            <h3>GitHub</h3>
+            <p>
+              Explore our open-source projects, CTF challenges, and contribute
+              to our cybersecurity tools and resources.
+            </p>
+            <div class="card-stats">
+              <div class="stat">
+                <div class="stat-number" id="gh-repos">1</div>
+                <div class="stat-label">Repos</div>
+              </div>
+              <div class="stat">
+                <div class="stat-number" id="gh-stars">1</div>
+                <div class="stat-label">Stars</div>
+              </div>
+            </div>
+            <a
+              href="https://github.com/Andrew-most-likely/JWU-NCSA"
+              target="_blank"
+              class="visit-btn"
+              >View Repos</a
+            >
+          </div>
+        </div>
+      </section>
     </div>
+
     <footer>
-        <p>&copy; 2025 Example Club. All rights reserved.</p>
+      <p>&copy; 2025 JWU-NCSA. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://www.instagram.com/jwu_ncsa/" target="_blank"
+          >Instagram</a
+        >
+        | <a href="https://discord.gg/3Ex9zfmw" target="_blank">Discord</a> |
+        <a href="https://github.com/Andrew-most-likely/JWU-NCSA" target="_blank"
+          >GitHub</a
+        >
+      </div>
     </footer>
-</body>
+
+    <script>
+      const buttons = document.querySelectorAll(".tab-btn");
+      const sections = document.querySelectorAll("section");
+
+      function showSection(tab) {
+        sections.forEach((s) => s.classList.remove("active"));
+        document.getElementById(tab).classList.add("active");
+        buttons.forEach((b) => b.classList.remove("active"));
+        document
+          .querySelector(`.tab-btn[data-tab="${tab}"]`)
+          .classList.add("active");
+      }
+
+      buttons.forEach((btn) =>
+        btn.addEventListener("click", () => showSection(btn.dataset.tab))
+      );
+      showSection("about");
+
+      // Contact form success message with fade out
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const msg = document.getElementById("success-msg");
+          msg.style.display = "block";
+          setTimeout(() => {
+            msg.style.display = "none";
+          }, 4000);
+          this.reset();
+        });
+
+      // Smooth scroll for banner button
+      document
+        .querySelector(".banner-text .btn")
+        .addEventListener("click", (e) => {
+          e.preventDefault();
+          document
+            .getElementById("contact")
+            .scrollIntoView({ behavior: "smooth" });
+        });
+
+      // Social media stats animation
+      function animateNumber(element, target) {
+        const duration = 1500;
+        const start = 0;
+        const increment = target / (duration / 16);
+        let current = start;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+          } else {
+            element.textContent = Math.floor(current);
+          }
+        }, 16);
+      }
+
+      // Simulate loading stats when Follow Us section is visible
+      const followSection = document.getElementById("follow-us");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Simulate stats (replace with actual API calls if available)
+              setTimeout(() => {
+                animateNumber(document.getElementById("ig-posts"), 42);
+                animateNumber(document.getElementById("ig-followers"), 156);
+                animateNumber(document.getElementById("discord-members"), 89);
+                animateNumber(document.getElementById("discord-online"), 23);
+                animateNumber(document.getElementById("gh-repos"), 8);
+                animateNumber(document.getElementById("gh-stars"), 34);
+              }, 300);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      observer.observe(followSection);
+
+      // Add hover effect audio feedback (optional)
+      document.querySelectorAll(".social-card").forEach((card) => {
+        card.addEventListener("mouseenter", function () {
+          this.style.transition = "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)";
+        });
+      });
+
+      // discord.js v14
+      const { Client, GatewayIntentBits } = require("discord.js");
+      const client = new Client({
+        intents: [
+          GatewayIntentBits.Guilds,
+          GatewayIntentBits.GuildMembers,
+          GatewayIntentBits.GuildPresences,
+        ],
+      });
+
+      client.once("ready", async () => {
+        const guild = await client.guilds.fetch("YOUR_SERVER_ID");
+        await guild.members.fetch(); // Fetch all members
+        const totalMembers = guild.memberCount;
+        const onlineMembers = guild.members.cache.filter(
+          (m) => m.presence?.status === "online"
+        ).size;
+        console.log({ totalMembers, onlineMembers });
+      });
+
+      client.login("YOUR_BOT_TOKEN");
+    </script>
+  </body>
 </html>
